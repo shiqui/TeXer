@@ -3,15 +3,15 @@ const { SlashCommandBuilder, ModalBuilder, ActionRowBuilder, TextInputBuilder, T
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('tex')
-		.setDescription('Render a LsTeX expression.'),
+		.setDescription('Render a TeX expression.'),
 	async execute(interaction) {
 		const modal = new ModalBuilder()
 			.setCustomId('texModal')
-			.setTitle('Enter LaTeX Expression')
+			.setTitle('Enter TeX Expression')
 
 		const texInput = new TextInputBuilder()
 			.setCustomId('texInput')
-			.setLabel('LaTeX Expression')
+			.setLabel('TeX Expression')
 			.setStyle(TextInputStyle.Paragraph)
 
 		const firstActionRow = new ActionRowBuilder().addComponents(texInput)

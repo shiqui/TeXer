@@ -1,4 +1,5 @@
-const { Events } = require('discord.js')
+const { Events, AttachmentBuilder, EmbedBuilder } = require('discord.js')
+const { render } = require('../utils/render')
 
 module.exports = {
 	name: Events.InteractionCreate,
@@ -13,8 +14,13 @@ module.exports = {
 
 const modalHandler = async (interaction) => {
 	if (interaction.customId !== 'texModal') return
-	const tex = interaction.fields.getTextInputValue('texInput')
-	await interaction.reply({ content: tex })
+	try{
+		const buffer = await render(interaction.fields.getTextInputValue('texInput'))
+		const file = new AttachmentBuilder(buffer, 'tex.png')
+		await interaction.reply({ files: [file] })
+	} catch (error) {
+		console.error(error)
+	}
 }
 
 const commandHandler = async (interaction) => {
